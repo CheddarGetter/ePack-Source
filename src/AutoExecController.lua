@@ -1,4 +1,4 @@
-IsProductionBuild = true
+IsProductionBuild = true -- for debugging
 
 local IsInstalled = true
 InstallCompleted = Instance.new("BindableEvent")
@@ -10,14 +10,11 @@ end
 
 if (not IsInstalled) then
     InstallCompleted.Event:Wait()
+    InstallCompleted:Destroy()
 end
-
-IsProductionBuild = true -- for debugging
 
 loadstring(readfile("ePack/Controller.lua"))()
 
 if (game:HttpGetAsync("https://raw.githubusercontent.com/CheddarGetter/ePack-Source/master/src/Controller.lua") ~= readfile("ePack/Controller.lua")) then
     loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/CheddarGetter/ePack-Source/master/src/Updater.lua"))()
 end
-
-InstallCompleted:Destroy()
