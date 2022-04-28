@@ -1,8 +1,8 @@
 if (IsProductionBuild) then
     local ePackConfig = GetConfig "ePackConfig"
 
-    if (ePackConfig.DeveloperMode == true) then
-        warn("ePack Controller is outdated (Developer Mode)")
+    if (not ePackConfig.ShowControllerOutdatedPrompt) then
+        warn("ePack controller is outdated")
         return
     end
 end
@@ -184,57 +184,40 @@ local function CreateCloseButton()
 end
 
 
-local Start
-Start = function ()
-    SetTitleText("ePack")
-    SetInfoText("Would you like to update your ePack Controller?\nIt's outdated from the one on the github repository!")
+
+SetTitleText("ePack")
+SetInfoText("Would you like to update your ePack Controller?\nIt's outdated from the one on the github repository!")
+DestroyButtons()
+
+NewButton("Yes", function()
+    ButtonHolder.Visible = false
+    InfoLabel.Text = "Installing Controller..."
+    
+    local src = game:HttpGetAsync("https://raw.githubusercontent.com/CheddarGetter/ePack-Source/master/src/Controller.lua")
+    if (IsProductionBuild) then
+        writefile("ePack/Controller.lua", src)
+    end
+
+    task.wait(0.5)
+
+    SetInfoText("Update complete!\n\nWould you like to rejoin your current game?\nePack will not run the latest version if you don't")
     DestroyButtons()
-    
+
     NewButton("Yes", function()
-        ButtonHolder.Visible = false
-        InfoLabel.Text = "Installing Controller..."
-        
-        local src = game:HttpGetAsync("https://raw.githubusercontent.com/CheddarGetter/ePack-Source/master/src/Controller.lua")
-        if (IsProductionBuild) then
-            writefile("ePack/Controller.lua", src)
-        end
-    
-        task.wait(0.5)
-    
-        SetInfoText("Update complete!\n\nWould you like to rejoin your current game?\nePack will not run the latest version if you don't")
-        DestroyButtons()
-    
-        NewButton("Yes", function()
-            ePackPrompt:Destroy()
-            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
-        end)
-    
-        NewButton("No", function()
-            ePackPrompt:Destroy()
-        end)
+        ePackPrompt:Destroy()
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
     end)
 
-    NewButton("Enable Developer Mode", function()
-        SetInfoText('<font color="rgb(255, 0, 0)"><b><u>Are you sure you want to enable developer mode?</u></b></font>\nYou will not be asked to update your ePack controller when it\'s outdated\nThis can cause things not to work as intended')
-        DestroyButtons()
-    
-        NewButton("Yes", function()
-            if (IsProductionBuild) then
-                ePackConfig.DeveloperMode = true
-            end
-    
-            SetInfoText('Developer mode enabled')
-            CreateCloseButton()
-        end)
-    
-        NewButton("Back", function()
-            Start()
-        end)
-    end)
-    
     NewButton("No", function()
         ePackPrompt:Destroy()
     end)
-end
+end)
 
-Start()
+NewButton("No", function()
+    ePackPrompt:Destroy()
+end)
+
+NewButton("Don't Show This", function()
+    SetInfoText("Controller outdated prompt disabled")
+    CreateCloseButton()
+end)

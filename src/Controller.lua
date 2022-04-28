@@ -52,7 +52,7 @@ end
 
 -- create the default epack config
 local ePackConfig = GetConfig "ePackConfig"
-ePackConfig.DeveloperMode = ePackConfig.DeveloperMode or false
+ePackConfig.ShowControllerOutdatedPrompt = ePackConfig.ShowControllerOutdatedPrompt == nil and true or ePackConfig.ShowControllerOutdatedPrompt
 
 
 -- pack class
@@ -78,6 +78,7 @@ end
 
 function Pack:Disable()
     if (self.Enabled) then
+        self:CleanConnections() -- automatically clean connections when disabled
         self.Enabled = false
         self._disabled:Fire()
     end
@@ -135,6 +136,8 @@ end
 -- fire the event cus all of the packs IN THEORY should be loaded
 task.defer(function()
     ArePacksLoaded = true
+
     PacksLoaded:Fire()
     PacksLoaded:Destroy()
+    PacksLoaded = nil
 end)
