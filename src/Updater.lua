@@ -194,7 +194,7 @@ Start = function ()
         ButtonHolder.Visible = false
         InfoLabel.Text = "Installing Controller..."
         
-        local src = game:HttpGetAsync("https://raw.githubusercontent.com/CheddarGetter/ePack/main/Controller.lua")
+        local src = game:HttpGetAsync("https://raw.githubusercontent.com/CheddarGetter/ePack-Source/master/src/Controller.lua")
         if (IsProductionBuild) then
             writefile("ePack/Controller.lua", src)
         end
