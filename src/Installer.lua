@@ -201,7 +201,7 @@ NewButton("Yes", function()
 
     CreateCloseButton()
     NewButton("Github", function()
-        setclipboard("https://github.com/CheddarGetter/ePack")
+        setclipboard("https://github.com/CheddarGetter/ePack-Source")
 
         SetInfoText("Github link copied to your clipboard\nPaste it into your browser and read the readme for documentation")
         CreateCloseButton()

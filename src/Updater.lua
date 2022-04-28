@@ -202,7 +202,7 @@ NewButton("Yes", function()
 
     task.wait(0.5)
 
-    SetInfoText("Update complete!\n\nWould you like to rejoin your current game?\nePack will not run the latest version if you don't")
+    SetInfoText("Update complete\nWould you like to rejoin your current game?")
     DestroyButtons()
 
     NewButton("Yes", function()
@@ -220,7 +220,7 @@ NewButton("No", function()
 end)
 
 NewButton("Don't Show This", function()
-    SetInfoText("Controller outdated prompt disabled")
+    SetInfoText("Update prompt disabled successfully")
     CreateCloseButton()
 
     if (IsProductionBuild) then
