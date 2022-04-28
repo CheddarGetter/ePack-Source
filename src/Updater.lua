@@ -1,5 +1,7 @@
+local ePackConfig
+
 if (IsProductionBuild) then
-    local ePackConfig = GetConfig "ePackConfig"
+    ePackConfig = GetConfig "ePackConfig"
 
     if (not ePackConfig.ShowControllerOutdatedPrompt) then
         warn("ePack controller is outdated")
@@ -220,4 +222,8 @@ end)
 NewButton("Don't Show This", function()
     SetInfoText("Controller outdated prompt disabled")
     CreateCloseButton()
+
+    if (IsProductionBuild) then
+        ePackConfig.ShowControllerOutdatedPrompt = false
+    end
 end)
