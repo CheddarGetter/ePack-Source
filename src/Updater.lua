@@ -22,19 +22,14 @@ BackFrame.Name = "BackFrame"
 BackFrame.AnchorPoint = Vector2.new(0.5, 0.5)
 BackFrame.AutomaticSize = Enum.AutomaticSize.XY
 BackFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+BackFrame.BackgroundTransparency = 0.05
 BackFrame.BorderColor3 = Color3.fromRGB(255, 255, 255)
 BackFrame.BorderSizePixel = 0
 BackFrame.Position = UDim2.fromScale(0.5, 0.5)
 
-local Stroke = Instance.new("UIStroke")
-Stroke.Name = "Stroke"
-Stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-Stroke.Color = Color3.fromRGB(220, 220, 220)
-Stroke.Parent = BackFrame
-
 local Corner = Instance.new("UICorner")
 Corner.Name = "Corner"
-Corner.CornerRadius = UDim.new(0, 4)
+Corner.CornerRadius = UDim.new(0, 6)
 Corner.Parent = BackFrame
 
 local Layout = Instance.new("UIListLayout")
@@ -57,7 +52,7 @@ Title.Name = "Title"
 Title.Font = Enum.Font.ArialBold
 Title.RichText = true
 Title.Text = "Text"
-Title.TextColor3 = Color3.fromRGB(220, 220, 220)
+Title.TextColor3 = Color3.fromRGB(204, 204, 204)
 Title.TextSize = 23
 Title.TextYAlignment = Enum.TextYAlignment.Top
 Title.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
@@ -70,7 +65,7 @@ InfoLabel.Name = "InfoLabel"
 InfoLabel.Font = Enum.Font.SourceSans
 InfoLabel.RichText = true
 InfoLabel.Text = "Text"
-InfoLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
+InfoLabel.TextColor3 = Color3.fromRGB(204, 204, 204)
 InfoLabel.TextSize = 23
 InfoLabel.TextTransparency = 0.25
 InfoLabel.TextWrapped = true
@@ -78,6 +73,13 @@ InfoLabel.TextYAlignment = Enum.TextYAlignment.Top
 InfoLabel.AutomaticSize = Enum.AutomaticSize.XY
 InfoLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 InfoLabel.BackgroundTransparency = 1
+
+local Padding1 = Instance.new("UIPadding")
+Padding1.Name = "Padding1"
+Padding1.PaddingBottom = UDim.new(0, 15)
+Padding1.PaddingTop = UDim.new(0, 5)
+Padding1.Parent = InfoLabel
+
 InfoLabel.Parent = BackFrame
 
 local ButtonHolder = Instance.new("Frame")
@@ -85,7 +87,7 @@ ButtonHolder.Name = "ButtonHolder"
 ButtonHolder.AutomaticSize = Enum.AutomaticSize.X
 ButtonHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 ButtonHolder.BackgroundTransparency = 1
-ButtonHolder.Size = UDim2.fromOffset(300, 35)
+ButtonHolder.Size = UDim2.fromOffset(300, 30)
 ButtonHolder.Visible = false
 
 local ButtonPrefab = Instance.new("TextButton")
@@ -93,11 +95,11 @@ ButtonPrefab.Name = "ButtonPrefab"
 ButtonPrefab.Font = Enum.Font.SourceSans
 ButtonPrefab.RichText = true
 ButtonPrefab.Text = "Text"
-ButtonPrefab.TextColor3 = Color3.fromRGB(220, 220, 220)
+ButtonPrefab.TextColor3 = Color3.fromRGB(204, 204, 204)
 ButtonPrefab.TextSize = 23
 ButtonPrefab.AutomaticSize = Enum.AutomaticSize.X
-ButtonPrefab.BackgroundColor3 = Color3.fromRGB(104, 104, 104)
-ButtonPrefab.BackgroundTransparency = 0.6
+ButtonPrefab.BackgroundColor3 = Color3.fromRGB(71, 71, 71)
+ButtonPrefab.BackgroundTransparency = 0.8
 ButtonPrefab.BorderSizePixel = 0
 ButtonPrefab.Size = UDim2.new(0, 150, 1, 0)
 ButtonPrefab.Visible = false
@@ -107,12 +109,12 @@ Corner1.Name = "Corner1"
 Corner1.CornerRadius = UDim.new(0, 4)
 Corner1.Parent = ButtonPrefab
 
-local Stroke1 = Instance.new("UIStroke")
-Stroke1.Name = "Stroke1"
-Stroke1.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-Stroke1.Color = Color3.fromRGB(115, 115, 115)
-Stroke1.Thickness = 0.8
-Stroke1.Parent = ButtonPrefab
+local Stroke = Instance.new("UIStroke")
+Stroke.Name = "Stroke"
+Stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+Stroke.Color = Color3.fromRGB(204, 204, 204)
+Stroke.Thickness = 0.8
+Stroke.Parent = ButtonPrefab
 
 local ButtonPadding = Instance.new("UIPadding")
 ButtonPadding.Name = "ButtonPadding"
@@ -124,14 +126,13 @@ ButtonPadding.Parent = ButtonPrefab
 
 ButtonPrefab.Parent = ButtonHolder
 
-local UIListLayout = Instance.new("UIListLayout")
-UIListLayout.Name = "UIListLayout"
-UIListLayout.Padding = UDim.new(0, 10)
-UIListLayout.FillDirection = Enum.FillDirection.Horizontal
-UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-UIListLayout.Parent = ButtonHolder
+local Layout1 = Instance.new("UIGridLayout")
+Layout1.Name = "Layout1"
+Layout1.CellPadding = UDim2.fromOffset(10, 10)
+Layout1.CellSize = UDim2.fromOffset(150, 30)
+Layout1.HorizontalAlignment = Enum.HorizontalAlignment.Center
+Layout1.SortOrder = Enum.SortOrder.LayoutOrder
+Layout1.Parent = ButtonHolder
 
 ButtonHolder.Parent = BackFrame
 BackFrame.Parent = Prompt
@@ -142,7 +143,7 @@ if (syn) then
     syn.protect_gui(Prompt)
 end
 
-Prompt.Parent = syn and game:GetService("CoreGui") or game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+Prompt.Parent = syn and game:GetService("CoreGui") or nil
 
 
 -- Functions
@@ -192,7 +193,7 @@ end
 
 
 -- Functionality
-SetTitleText("ePack")
+SetTitleText("Update Wizard")
 SetInfoText("Would you like to update your ePack Controller?\nIt's outdated from the one on the github repository!")
 DestroyButtons()
 
@@ -207,17 +208,8 @@ NewButton("Yes", function()
 
     task.wait(0.5)
 
-    SetInfoText("Update complete\nWould you like to rejoin your current game?")
-    DestroyButtons()
-
-    NewButton("Yes", function()
-        Prompt:Destroy()
-        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
-    end)
-
-    NewButton("No", function()
-        Prompt:Destroy()
-    end)
+    SetInfoText("Update complete")
+    CreateCloseButton()
 end)
 
 NewButton("No", function()
