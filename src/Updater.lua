@@ -1,10 +1,10 @@
 local ePackConfig
 
 if (IsProductionBuild) then
-    ePackConfig = GetConfig "ePackConfig"
+    ePackConfig = config(ePackConfig")
 
     if (not ePackConfig.ShowControllerOutdatedPrompt) then
-        warn("ePack controller is outdated")
+        printconsole("ePack controller is outdated", 255, 0, 0)
         return
     end
 end
