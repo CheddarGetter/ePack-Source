@@ -2,7 +2,6 @@ if (IsProductionBuild) then
     ePackConfig = config("ePackConfig")
 end
 
-
 local Prompt = Instance.new("ScreenGui")
 Prompt.Name = "Prompt"
 Prompt.DisplayOrder = 1e+09
@@ -172,22 +171,18 @@ local function NewButton(Text, ClickedCallback)
     Button.MouseButton1Click:Connect(ClickedCallback)
 end
 
-local function CreateCloseButton()
+local function CreateCloseButton(ClickedCallback)
     DestroyButtons()
 
     NewButton("Close", function()
         Prompt:Destroy()
-
-        if (InstallCompleted) then -- for debugging lol
-            InstallCompleted:Fire()
-        end
     end)
 end
 
 
 -- Functionality
 SetTitleText("Update Wizard")
-SetInfoText("Would you like to update your ePack Controller?\nIt's outdated from the one on the github repository!")
+SetInfoText("Would you like to update your ePack Controller?\nIt's outdated from the one on the github repository")
 DestroyButtons()
 
 NewButton("Yes", function()
@@ -201,7 +196,7 @@ NewButton("Yes", function()
 
     task.wait(0.5)
 
-    SetInfoText("Update complete")
+    SetInfoText("Update complete\nChanges will not take place until ePack is restarted")
     CreateCloseButton()
 end)
 
@@ -210,7 +205,7 @@ NewButton("No", function()
 end)
 
 NewButton("Don't Show This", function()
-    SetInfoText("Update prompt disabled successfully")
+    SetInfoText("Update prompt disabled\nYou will no-longer see this")
     CreateCloseButton()
 
     if (IsProductionBuild) then
