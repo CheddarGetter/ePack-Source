@@ -5,7 +5,7 @@ InstallCompleted = Instance.new("BindableEvent")
 
 if (not isfile("ePack/Controller.lua")) then
     IsInstalled = false
-    loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/CheddarGetter/ePack-Source/master/src/Installer.lua"))()
+    loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/CheddarGetter/ePack-Source/master/src/Installer.lua"), "ePack Installer")()
 end
 
 if (not IsInstalled) then
@@ -13,8 +13,4 @@ if (not IsInstalled) then
     InstallCompleted:Destroy()
 end
 
-loadstring(readfile("ePack/Controller.lua"))()
-
-if (game:HttpGetAsync("https://raw.githubusercontent.com/CheddarGetter/ePack-Source/master/src/Controller.lua") ~= readfile("ePack/Controller.lua")) then
-    loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/CheddarGetter/ePack-Source/master/src/Updater.lua"))()
-end
+loadstring(readfile("ePack/Controller.lua"), "ePack Controller")()

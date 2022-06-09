@@ -21,4 +21,3 @@
   
   ## Step 5
   Join any game, you will be prompted for further installation.
-  

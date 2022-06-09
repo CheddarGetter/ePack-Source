@@ -26,10 +26,10 @@ function GetConfig(ConfigName)
         return Configs[ConfigName]
     end
 
-    local Path = "ePack/Data/" .. ConfigName .. ".json"
+    local Path = ("ePack/Data/%s.json"):format(ConfigName)
 
     if (not isfile(Path)) then
-        writefile(Path,  "[]")
+        writefile(Path,  "")
     end
 
     local Config = game:GetService("HttpService"):JSONDecode(readfile(Path))
@@ -123,7 +123,7 @@ for _, Pack in ipairs(listfiles("ePack/Packs")) do
                 local Success, Error = pcall(Compiled)
 
                 if (not Success) then
-                    warn("Unhandled exception in \"" .. Pack:split("\\")[2] .. "\", " .. Error)
+                    messagebox("Unhandled exception in \"" .. Pack:split("\\")[2] .. "\"\n" .. Error, "ePack", 0)
                 end
             end)()
         else
