@@ -1,6 +1,4 @@
-if (IsProductionBuild) then
-    ePackConfig = config("ePackConfig")
-end
+local ePackConfig = IsProductionBuild == true and config("ePackConfig") or nil
 
 local Prompt = Instance.new("ScreenGui")
 Prompt.Name = "Prompt"
@@ -205,7 +203,7 @@ NewButton("No", function()
 end)
 
 NewButton("Don't Show This", function()
-    SetInfoText("Update prompt disabled\nYou will no-longer see this")
+    SetInfoText("Update prompt disabled\nYou will no longer see this")
     CreateCloseButton()
 
     if (IsProductionBuild) then
